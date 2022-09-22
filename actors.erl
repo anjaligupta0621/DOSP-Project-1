@@ -8,11 +8,11 @@ main() ->
     get_data(),
     server(),
     worker(),
-    sha256().
+    randomStringGenerator_SHA256().
 
 get_data() ->
-    {ok, [X]} = io:fread("input : ", "~d"),
-    io:format("Enter the number of zeros: ~w\n", [X]).
+    {ok, [X]} = io:fread("Enter the number of zeros: ", "~d\n"),
+    io:format("The Number User Entered was: ~w\n", [X]).
 
 server() ->
     'Entered Server Code'.
@@ -20,5 +20,11 @@ server() ->
 worker() ->
     'Entered Server Code'.
 
-sha256() ->
-    io_lib:format("~64.16.0b", [binary:decode_unsigned(crypto:hash(sha256,"teststring"))]).
+randomStringGenerator_SHA256() ->
+    Random_Generated_String = base64:encode(crypto:strong_rand_bytes(6)),
+
+    % generates random string
+    io:format("The random generated string is: ~s\n", [Random_Generated_String]),
+
+    %passing the above generated string to a  SHA256
+    io_lib:format("Hash Generated: ~64.16.0b", [binary:decode_unsigned(crypto:hash(sha256,Random_Generated_String))]).

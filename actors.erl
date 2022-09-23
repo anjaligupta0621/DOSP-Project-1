@@ -18,21 +18,29 @@ server() ->
 
 worker(NumberOfZeros) ->
 
-    HashString = randomStringGenerator_SHA256(),
+    Random_Generated_String = randomStringGenerator(),
+    HashString = run_SHA256(Random_Generated_String),
     % Check if we have the desired number of zeros
     Check = checkStringMatch(NumberOfZeros, HashString),
+
+    % Recursive Loop until we find the right number of leading zeros
     if 
         Check == true ->
-            io:fwrite("\n\nYAAASSSSSS :) :)\n\n");
+            io:fwrite("\n\nYAAASSSSSS :) :)\n\n"),
+            io:format("OUTPUT:  ~s\n", [Random_Generated_String]);
         true -> 
-            io:fwrite("\n\nOOPSIE, No luck :( \n\n") 
+            io:fwrite("\n\nOOPSIE, No luck :( \n\n"),
+            worker(NumberOfZeros)
     end.
 
-randomStringGenerator_SHA256() ->
-
-    % generates random string
+randomStringGenerator() ->
+    % generates and prints the random string
     Random_Generated_String = base64:encode(crypto:strong_rand_bytes(6)),
     io:format("The random generated string is: ~s\n", [Random_Generated_String]),
+
+    Random_Generated_String. % return the randomly generated string
+
+run_SHA256(Random_Generated_String) ->
 
     %passing the above generated string to a SHA256 and printing the generated hash value
     HashString = io_lib:format("~64.16.0b", [binary:decode_unsigned(crypto:hash(sha256,Random_Generated_String))]),

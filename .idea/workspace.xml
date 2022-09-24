@@ -2,14 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c24f660-4577-44f3-952b-c98fa09c5fa4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/clients.beam" beforeDir="false" afterPath="$PROJECT_DIR$/clients.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clients.erl" beforeDir="false" afterPath="$PROJECT_DIR$/clients.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.beam" beforeDir="false" afterPath="$PROJECT_DIR$/server.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.erl" beforeDir="false" afterPath="$PROJECT_DIR$/client.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.erl" beforeDir="false" afterPath="$PROJECT_DIR$/server.erl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Erlang Supervisor" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -22,19 +31,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/anjaligupta/Desktop/DOSP-Project-1",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "Erlang External Tools"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/anjaligupta/Desktop/DOSP-Project-1&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Erlang External Tools&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="helloWorld.start" type="ErlangApplicationRunConfiguration" factoryName="Erlang" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <module name="DOSP-Project-1" />
@@ -76,6 +85,8 @@
       <updated>1663192196253</updated>
       <workItem from="1663192197828" duration="115000" />
       <workItem from="1663960131625" duration="9050000" />
+      <workItem from="1664000523690" duration="6883000" />
+      <workItem from="1664057843816" duration="1971000" />
     </task>
     <servers />
   </component>

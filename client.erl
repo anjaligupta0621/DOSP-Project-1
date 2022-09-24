@@ -20,13 +20,34 @@ startWorkers(X, N, Sock) ->
     Workers.
 
 startMining(X, Id, Sock) ->
-    io:format("Worker~w: I'm still alive~n", [Id]),
+    io:format("Worker~w: I'm alive~n", [Id]),
     % start time
-    T1 = erlang:time(),
-    io:fwrite("Time of worker ~w -> ~w \n",[Id, T1]),
+    {H1, M1, S1} = erlang:time(),
+    io:fwrite("Worker ~w started... \n",[Id]),
     worker(X, Sock),
-    T2 = erlang:time(),
-    io:fwrite("Time 2 of worker ~w -> ~w \n", [Id, T2]),
+    {H2, M2, S2} = erlang:time(),
+    HourDiff = H2 - H1,
+    MinDiff = M2 - M1,
+    Diff = S2 - S1,
+    if
+        Diff < 0 ->
+            SecDiff = 60 + Diff;
+        true ->
+            SecDiff = Diff
+    end,
+    if
+        HourDiff == 0 ->
+            if
+                MinDiff == 0 ->
+                    io:fwrite("Worker ~w took ~w seconds to complete the process \n", [Id, SecDiff]);
+                true ->
+                    io:fwrite("Worker ~w took ~w minutes and ~w seconds to complete the process \n", [Id, MinDiff, SecDiff])
+            end;
+        true ->
+            io:fwrite("Worker ~w took ~w hours, ~w minutes, and ~w seconds to complete the process \n", [Id, HourDiff, MinDiff, SecDiff])
+    end,
+    %io:fwrite("Time 2 of worker ~w -> ~w \n", [Id, T2]),
+    startMining(X, Id, Sock),
     X.
 
 worker(NumberOfZeros, Sock) ->

@@ -8,12 +8,16 @@ main(X, Id) ->
     io:format("Worker~w: I'm still alive~n", [Id]),
     % start time
 
-    T1 = erlang:timestamp(),
+    T1 = erlang:time(),
+    %T2 = erlang:timestamp(),
+    %io:fwrite("\n"),
+    io:fwrite("Time of worker ~w -> ~w \n",[Id, T1]),
     worker(X),
-    T2 = erlang:timestamp(),
-    %DiffT = timer:now_diff(T2,T1),
-    io:fwrite(T1),
-    io:fwrite(T2),
+    T2 = erlang:time(),
+    io:fwrite("Time 2 of worker ~w -> ~w \n", [Id, T2]),
+
+    %DiffT = now_diff(T2,T1),
+    %io:fwrite(DiffT),
     % end time
     % print time taken
     X.
@@ -63,7 +67,7 @@ checkStringMatch(NumberOfZeros, HashString) ->
     TargetString =  lists:flatten(lists:duplicate(NumberOfZeros, "0")),
     % io:fwrite(TargetString),
 
-    %% Check if the hash contains desired leading zeros, string comparision
+    %% Check if the hash contains desired leading zeros, string comparison
     Status = equal(PotentialZeros, TargetString), 
     %io:fwrite("~p~n\n",[Status]),
     

@@ -1,15 +1,25 @@
 -module(client).
 
--import(string, [substr/3, equal/2]).
--export([start/0, startMining/3]).
+-import(string, [substr/3, equal/2, len/1]).
+-export([start/1, startMining/3]).
 
-start() ->
-    IPAddress = "localhost",
+start(IPAddress) ->
+    %IPAddress = "localhost",
     PortNumber = 1204,
     % you can pass localhost for now.
     {ok, Sock} = gen_tcp:connect(IPAddress, PortNumber, [binary, {packet, 0}]),
     ok = gen_tcp:send(Sock, "I want work"),
-    startWorkers(1, 4, Sock).
+    receive
+        {tcp, Sock, Data} ->
+            io:fwrite(Data),
+            New_X = erlang:binary_to_list(Data),
+            Newer_X = erlang:list_to_integer(New_X),
+            startWorkers(Newer_X, 4, Sock);
+
+        {tcp, closed, Sock} ->
+            closed
+    end.
+    %startWorkers(X, 4, Sock).
     %ok = gen_tcp:close(Sock).
 
 startWorkers(X, N, Sock) ->

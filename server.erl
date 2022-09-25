@@ -1,26 +1,26 @@
 %% @author
 -module(server).
 -import(string, [substr/3, equal/2]).
--export([start/0, server/0, startMining/2]).
+-export([start/0, server/1, startMining/2]).
 
 start() ->
     N= 4,
     X = get_data(),
     createWorkers(N, X),
-    server().
+    server(X).
 
 get_data() ->
     {ok, [X]} = io:fread("\nEnter the number of zeros: ", "~d\n"),
     X.
 
-server() ->
-    
+server(X) ->
     {ok, ListenSocket} = gen_tcp:listen(1204, [binary, {keepalive, true}, {reuseaddr, true}, {active, once}]),
-    parallel_connection(ListenSocket).
+    parallel_connection(ListenSocket, X).
 
-parallel_connection(Listen) ->
+parallel_connection(Listen, X) ->
     {ok, Socket} = gen_tcp:accept(Listen),
-    spawn(fun() -> parallel_connection(Listen) end),
+    ok = gen_tcp:send(Socket, io_lib:format("~p",[X])),
+    spawn(fun() -> parallel_connection(Listen, X) end),
     conn_loop(Socket).
 
 conn_loop(Socket) ->

@@ -14,38 +14,32 @@ get_data() ->
     X.
 
 server() ->
-    % server starts by listening on a specified port number
-    {ok, ListenSocket} = gen_tcp:listen(1204, [binary, {packet, 0}, {active, false}]),
-    {ok, Sock} = gen_tcp:accept(ListenSocket), 
-    loop(Sock),
-    ok = gen_tcp:close(Sock),
-    ok = gen_tcp:close(Sock).
+    
+    {ok, ListenSocket} = gen_tcp:listen(1204, [binary, {keepalive, true}, {reuseaddr, true}, {active, once}]),
+    parallel_connection(ListenSocket).
 
-loop(Sock) ->
-    % server accepts a client connection whenever it gets one
-    % receive data sent by client
-    inet:setopts(Sock,[{active,once}]),
+parallel_connection(Listen) ->
+    {ok, Socket} = gen_tcp:accept(Listen),
+    spawn(fun() -> parallel_connection(Listen) end),
+    conn_loop(Socket).
+
+conn_loop(Socket) ->
     receive
-        {tcp,S,Data} ->
-            %Answer = process(Data), % Not implemented in this example
+	{tcp, Socket, Data} ->
+	    inet:setopts(Socket, [{active, once}]),
+	    Work = "I want work",
+        Status = equal(Data, Work),
 
-            Work = "I want work",
-            Status = equal(Data, Work),
-
-            if
-                Status == true ->
-                    io:fwrite("A worker is available for some work\n");
-                true ->
-                    io:format("~s", [Data])
-                    %io:fwrite(Data)
-            end,
-
-
-            %gen_tcp:send(S,Answer),
-            loop(S);
-        {tcp_closed,S} ->
-            io:format("Socket ~w closed [~w]~n",[S,self()]),
-            ok
+        if
+            Status == true ->
+                io:fwrite("A worker is available for some work\n");
+            true ->
+                io:format("~s", [Data])
+                %io:fwrite(Data)
+        end,
+	    conn_loop(Socket);
+	{tcp_closed, Socket} ->
+	    closed
     end.
 
 createWorkers(N, X) ->
